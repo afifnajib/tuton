@@ -26,7 +26,7 @@
 import axios from "axios";
 import { IonCol, IonGrid, IonRow, IonButton, IonMenuToggle } from "@ionic/vue";
 import { sync } from "ionicons/icons";
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref } from "vue";
 import { add } from "ionicons/icons";
 defineProps({
   name: String,
@@ -39,8 +39,6 @@ interface MyData {
 }
 
 const data = ref<Array<MyData>>([]);
-
-onMounted(async () => {});
 
 const fetchData = async () => {
   try {

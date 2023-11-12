@@ -25,5 +25,5 @@ import {
   IonTitle,
   IonContent,
 } from "@ionic/vue";
-import ExploreContainer from "@/components/ExploreContainer";
+import ExploreContainer from "@/components/ExploreContainer.vue";
 </script>
