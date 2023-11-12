@@ -1,0 +1,8 @@
+{
+  "name": "TUTON",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite",
+  "id": "85388be9"
+}
