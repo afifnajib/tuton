@@ -1,39 +1,73 @@
 <template>
   <div id="container">
-    <strong>{{ name }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-grid>
+      <ion-row class="header">
+        <ion-col>Name</ion-col>
+        <ion-col>Symbol</ion-col>
+        <ion-col>Harga USD</ion-col>
+      </ion-row>
+      <template v-if="data.length > 0">
+        <ion-row v-for="item in data" :key="item.id" class="body">
+          <ion-col>{{ item.name }}</ion-col>
+          <ion-col>{{ item.symbol }}</ion-col>
+          <ion-col>{{ item.price_usd }}</ion-col>
+        </ion-row>
+      </template>
+    </ion-grid>
+    <div class="position">
+      <ion-button @click="fetchData" v-if="data.length == 0">
+        <ion-icon aria-hidden="true" :icon="sync" />
+      </ion-button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import axios from "axios";
+import { IonCol, IonGrid, IonRow, IonButton, IonMenuToggle } from "@ionic/vue";
+import { sync } from "ionicons/icons";
+import { defineComponent, ref, onMounted } from "vue";
+import { add } from "ionicons/icons";
 defineProps({
   name: String,
+});
+
+const data = ref([]);
+
+onMounted(async () => {});
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get("https://api.coinlore.net/api/tickers/");
+    data.value = response.data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+defineComponent({
+  components: { IonCol, IonGrid, IonRow, IonButton, IonMenuToggle },
+  setup() {
+    return { add };
+  },
 });
 </script>
 
 <style scoped>
-#container {
+.header {
+  background-color: #135d54;
+  border: solid 1px #fff;
+  color: #fff;
   text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.body {
+  border: solid 1px #fff;
+  color: #fff;
+  text-align: center;
 }
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #8c8c8c;
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+.position {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
