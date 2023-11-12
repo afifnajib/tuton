@@ -31,8 +31,14 @@ import { add } from "ionicons/icons";
 defineProps({
   name: String,
 });
+interface MyData {
+  id: number;
+  name: string;
+  symbol: string;
+  price_usd: number;
+}
 
-const data = ref([]);
+const data = ref<Array<MyData>>([]);
 
 onMounted(async () => {});
 
