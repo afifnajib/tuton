@@ -1,58 +1,82 @@
 <template>
-  <div id="container">
+  <div id="container" v-if="!isLoading">
+    <div class="position">
+      <ion-button @click="fetchData">
+        <ion-icon aria-hidden="true" :icon="sync" />
+      </ion-button>
+    </div>
     <ion-grid>
       <ion-row class="header">
+        <ion-col>Rank</ion-col>
         <ion-col>Name</ion-col>
         <ion-col>Symbol</ion-col>
-        <ion-col>Harga USD</ion-col>
+        <ion-col>USD</ion-col>
       </ion-row>
+
       <template v-if="data.length > 0">
         <ion-row v-for="item in data" :key="item.id" class="body">
+          <ion-col>{{ item.rank }}</ion-col>
           <ion-col>{{ item.name }}</ion-col>
           <ion-col>{{ item.symbol }}</ion-col>
           <ion-col>{{ item.price_usd }}</ion-col>
         </ion-row>
       </template>
     </ion-grid>
-    <div class="position">
-      <ion-button @click="fetchData" v-if="data.length == 0">
-        <ion-icon aria-hidden="true" :icon="sync" />
-      </ion-button>
-    </div>
+  </div>
+  <div v-else>
+    <p style="text-align: center">Loading..</p>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+import { defineComponent, onMounted, ref } from "vue";
 import axios from "axios";
-import { IonCol, IonGrid, IonRow, IonButton, IonMenuToggle } from "@ionic/vue";
+import { IonCol, IonGrid, IonRow, IonButton, IonIcon } from "@ionic/vue";
 import { sync } from "ionicons/icons";
-import { defineComponent, ref } from "vue";
-import { add } from "ionicons/icons";
-defineProps({
-  name: String,
-});
-interface MyData {
+
+type MyData = {
   id: number;
+  rank: number;
   name: string;
   symbol: string;
   price_usd: number;
-}
-
-const data = ref<Array<MyData>>([]);
-
-const fetchData = async () => {
-  try {
-    const response = await axios.get("https://api.coinlore.net/api/tickers/");
-    data.value = response.data.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
 };
 
-defineComponent({
-  components: { IonCol, IonGrid, IonRow, IonButton, IonMenuToggle },
+export default defineComponent({
+  components: {
+    IonCol,
+    IonGrid,
+    IonRow,
+    IonButton,
+    IonIcon,
+  },
   setup() {
-    return { add };
+    const data = ref<MyData[]>([]);
+    const isLoading = ref(false);
+
+    onMounted(() => {
+      fetchData();
+    });
+
+    const fetchData = async () => {
+      isLoading.value = true;
+      try {
+        const response = await axios.get(
+          "https://api.coinlore.net/api/tickers/"
+        );
+        data.value = response.data.data;
+        isLoading.value = false;
+      } catch (error) {
+        isLoading.value = false;
+        console.error("Error fetching data:", error);
+      }
+    };
+    return {
+      data,
+      fetchData,
+      sync,
+      isLoading,
+    };
   },
 });
 </script>

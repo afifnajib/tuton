@@ -2,13 +2,13 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Tugas 2 - Tuton</ion-title>
+        <ion-title>Tugas 3 - Tuton</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Tugas 2</ion-title>
+          <ion-title size="large">Tugas 3</ion-title>
         </ion-toolbar>
       </ion-header>
 
