@@ -12,7 +12,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <ExploreContainer name="Tugas 2" />
+      <Container name="Tugas 2" />
     </ion-content>
   </ion-page>
 </template>
@@ -25,5 +25,5 @@ import {
   IonTitle,
   IonContent,
 } from "@ionic/vue";
-import ExploreContainer from "@/components/ExploreContainer.vue";
+import Container from "@/components/Container.vue";
 </script>
