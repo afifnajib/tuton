@@ -104,6 +104,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
 ion-button {
   padding: 2.5vh;
 }

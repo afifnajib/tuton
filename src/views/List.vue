@@ -11,12 +11,7 @@
           <ion-title size="large">Tugas 3</ion-title>
         </ion-toolbar>
       </ion-header>
-
-<<<<<<< HEAD
-      <Container name="Tugas 2" />
-=======
       <Grid name="Tugas 3" />
->>>>>>> 045c89a (after fix bug)
     </ion-content>
   </ion-page>
 </template>
