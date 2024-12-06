@@ -24,5 +24,5 @@ import {
   IonTitle,
   IonContent,
 } from "@ionic/vue";
-import Container from "@/components/Container.vue";
+import Grid from "@/components/Grid.vue";
 </script>
